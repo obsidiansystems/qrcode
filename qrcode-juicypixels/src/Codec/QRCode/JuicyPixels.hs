@@ -5,12 +5,11 @@ module Codec.QRCode.JuicyPixels
   ( -- * Image
     toImage
     -- * URL
-  , toPngDataUrlBS
-  , toPngDataUrlS
-  , toPngDataUrlT
+  , toBmpDataUrlBS
+  , toBmpDataUrlS
+  , toBmpDataUrlT
   ) where
 
-import           Codec.Picture               (Image (..), Pixel8, encodePng)
 import           Data.Bool                   (bool)
 import qualified Data.ByteString.Base64.Lazy as B64L
 import qualified Data.ByteString.Lazy        as BL
@@ -21,6 +20,7 @@ import qualified Data.Vector.Unboxed         as UV
 import           Data.Word                   (Word8)
 
 import           Codec.QRCode                (QRImage (..))
+import           Codec.QRCode.Types
 
 -- | Convert the QR code into an image.
 --
@@ -69,21 +69,21 @@ toImage border' scale' QRImage{..} =
 --   Has the same arguments as `toImage`.
 --
 --   This can be used to display a image in HTML without creating a temporary file.
-toPngDataUrlBS :: Int -> Int -> QRImage -> BL.ByteString
-toPngDataUrlBS border scale img = "data:image/png;base64," `BL.append` B64L.encode (encodePng $ toImage border scale img)
+toBmpDataUrlBS :: Int -> Int -> QRImage -> BL.ByteString
+toBmpDataUrlBS border scale img = "data:image/bmp;base64," `BL.append` B64L.encode (encodeBitmap $ toImage border scale img)
 
 -- | Convert an QR code into a Uri.
 --   Has the same arguments as `toImage`.
 --
---   Like `toPngDataUrlBS` but with a to String conversion afterwards.
-toPngDataUrlS :: Int -> Int -> QRImage -> String
-{-# INLINE toPngDataUrlS #-}
-toPngDataUrlS border scale = BLC8.unpack . toPngDataUrlBS border scale
+--   Like `toBmpDataUrlBS` but with a to String conversion afterwards.
+toBmpDataUrlS :: Int -> Int -> QRImage -> String
+{-# INLINE toBmpDataUrlS #-}
+toBmpDataUrlS border scale = BLC8.unpack . toBmpDataUrlBS border scale
 
 -- | Convert an QR code into a Uri.
 --   Has the same arguments as `toImage`.
 --
---   Like `toPngDataUrlS` but with a to Text conversion afterwards.
-toPngDataUrlT :: Int -> Int -> QRImage -> TL.Text
-{-# INLINE toPngDataUrlT #-}
-toPngDataUrlT border scale = TL.pack . toPngDataUrlS border scale
+--   Like `toBmpDataUrlS` but with a to Text conversion afterwards.
+toBmpDataUrlT :: Int -> Int -> QRImage -> TL.Text
+{-# INLINE toBmpDataUrlT #-}
+toBmpDataUrlT border scale = TL.pack . toBmpDataUrlS border scale
