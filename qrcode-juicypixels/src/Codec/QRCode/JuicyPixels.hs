@@ -10,6 +10,8 @@ module Codec.QRCode.JuicyPixels
   , toBmpDataUrlT
   ) where
 
+import Codec.Picture.Types (Image(..), Pixel8)
+import Codec.Picture.Bitmap (encodeBitmap)
 import           Data.Bool                   (bool)
 import qualified Data.ByteString.Base64.Lazy as B64L
 import qualified Data.ByteString.Lazy        as BL
@@ -20,7 +22,6 @@ import qualified Data.Vector.Unboxed         as UV
 import           Data.Word                   (Word8)
 
 import           Codec.QRCode                (QRImage (..))
-import           Codec.QRCode.Types
 
 -- | Convert the QR code into an image.
 --

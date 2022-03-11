@@ -3,14 +3,7 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages:
-- completed:
-    hackage: JuicyPixels-3.3.3.1@sha256:dd5cb8538d69af55feca4f3f4cf377a280038b871571cae0fb960a502639cf98,3915
-    pantry-tree:
-      size: 2724
-      sha256: d6e07627aa9b8dbbc08ac48c8c5964ff8acb965214bebad3a3cfe94c185cd9c5
-  original:
-    hackage: JuicyPixels-3.3.3.1
+packages: []
 snapshots:
 - completed:
     size: 533252
